@@ -123,4 +123,26 @@ const obj = {
 
 // obj.extensions.tracing.duration => this is the total time
 // obj.extensions.tracing.execution.resolvers => array of resolver objs
-console.log(obj.extensions.tracing.execution.resolvers);
+// console.log(obj.extensions.tracing.execution.resolvers);
+
+const traceToD3 = (data) => {
+  const d3Data = [
+    { task: 'Total Time', start: 0, end: data.extensions.tracing.duration },
+  ];
+  let timeElapsed = 0;
+
+  for (let i = 0; i < data.extensions.tracing.execution.resolvers.length; i++) {
+    const resolver = data.extensions.tracing.execution.resolvers[i];
+
+    d3Data.push({
+      task: resolver.fieldName,
+      start: timeElapsed,
+      end: resolver.duration + timeElapsed,
+    });
+    timeElapsed += resolver.duration;
+  }
+
+  return d3Data;
+};
+
+console.log(traceToD3(obj));

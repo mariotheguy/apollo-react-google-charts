@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { Switch } from 'react-router-dom';
+import { Bar } from 'react-chartjs-2';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="app">
       <Switch>
-        <div>
-          This is a silly React Hooks demo with a Counter:
-          {count}
-          <br />
-          <br />
-          <button type="button" onClick={() => setCount(count + 1)}> Click Me </button>
+        <div className="chart">
+          <Bar
+            data={data}
+            width={100}
+            height={50}
+            options={{ maintainAspectRatio: false }}
+          />
         </div>
       </Switch>
     </div>
