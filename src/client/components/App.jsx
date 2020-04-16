@@ -1,21 +1,37 @@
 import React, { useState } from 'react';
-import { Switch } from 'react-router-dom';
-import { Bar } from 'react-chartjs-2';
+import { Chart } from 'react-google-charts';
 
 function App() {
   return (
-    <div className="app">
-      <Switch>
-        <div className="chart">
-          <Bar
-            data={data}
-            width={100}
-            height={50}
-            options={{ maintainAspectRatio: false }}
-          />
-        </div>
-      </Switch>
-    </div>
+    <Chart
+      width={'500px'}
+      height={'300px'}
+      chartType="Timeline"
+      loader={<div>Loading Chart</div>}
+      data={[
+        [
+          { type: 'string', id: 'Resolver/Query' },
+          { type: 'date', id: 'Start' },
+          { type: 'date', id: 'End' },
+        ],
+        ['Query', 0, 291258],
+        ['posts', 0, 28870],
+        ['title', 28870, 42922],
+        ['user', 42922, 52375],
+        ['id', 52375, 60806],
+        ['firstName', 60806, 68982],
+        ['lastName', 68982, 76392],
+        ['title', 76392, 90444],
+        ['user', 90444, 98876],
+        ['id', 98876, 105518],
+        ['firstName', 105518, 113438],
+        ['lastName', 113438, 119059],
+      ]}
+      options={{
+        showRowNumber: false,
+      }}
+      rootProps={{ 'data-testid': '1' }}
+    />
   );
 }
 
