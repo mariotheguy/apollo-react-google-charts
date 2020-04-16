@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 const obj = {
   data: {
     posts: [
@@ -127,18 +128,23 @@ const obj = {
 
 const traceToD3 = (data) => {
   const d3Data = [
-    { task: 'Total Time', start: 0, end: data.extensions.tracing.duration },
+    [
+      { type: 'string', id: 'Resolver/Query' },
+      { type: 'date', id: 'Start' },
+      { type: 'date', id: 'End' },
+    ],
+    ['Query', 0, obj.extensions.tracing.duration],
   ];
   let timeElapsed = 0;
 
   for (let i = 0; i < data.extensions.tracing.execution.resolvers.length; i++) {
     const resolver = data.extensions.tracing.execution.resolvers[i];
 
-    d3Data.push({
-      task: resolver.fieldName,
-      start: timeElapsed,
-      end: resolver.duration + timeElapsed,
-    });
+    d3Data.push([
+      resolver.fieldName,
+      timeElapsed,
+      resolver.duration + timeElapsed,
+    ]);
     timeElapsed += resolver.duration;
   }
 
@@ -146,3 +152,82 @@ const traceToD3 = (data) => {
 };
 
 console.log(traceToD3(obj));
+
+/* 
+
+
+  
+  */
+
+/* [
+        [
+          { type: 'string', label: 'Task ID' },
+          { type: 'string', label: 'Task Name' },
+          { type: 'string', label: 'Resource' },
+          { type: 'date', label: 'Start' },
+          { type: 'date', label: 'End' },
+          { type: 'number', label: 'Duration' },
+          { type: 'number', label: 'Percent Complete' },
+          { type: 'string', label: 'Dependencies' },
+        ],
+        [
+          'toTrain',
+          'Walk to train stop',
+          'walk',
+          null,
+          null,
+          5 * 60 * 1000,
+          100,
+          null,
+        ],
+        [
+          'music',
+          'Listen to music',
+          'music',
+          null,
+          null,
+          70 * 60 * 1000,
+          100,
+          null,
+        ],
+        [
+          'wait',
+          'Wait for train',
+          'wait',
+          null,
+          null,
+          10 * 60 * 1000,
+          100,
+          'toTrain',
+        ],
+        [
+          'train',
+          'Train ride',
+          'train',
+          null,
+          null,
+          45 * 60 * 1000,
+          75,
+          'wait',
+        ],
+        [
+          'toWork',
+          'Walk to work',
+          'walk',
+          null,
+          null,
+          10 * 60 * 1000,
+          0,
+          'train',
+        ],
+        [
+          'work',
+          'Sit down at desk',
+          null,
+          null,
+          null,
+          2 * 60 * 1000,
+          0,
+          'toWork',
+        ],
+      ] */
