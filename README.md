@@ -1,2 +1,2 @@
 # apollo-tracing-d3
-D3 apollo tracing for PostQL
+React google chart apollo tracing for PostQL
